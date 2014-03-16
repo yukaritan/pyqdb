@@ -1,4 +1,5 @@
 credentials/
 testdata/
+__pycache__/
 *.htm
 .idea/

@@ -7,7 +7,7 @@ class EShuuShuuScraper(GenericImageScraper):
 
     def find_image_link(self) -> str:
         try:
-            sublink = self._soup.find_all("a", **{'class': 'thumb_image'})[0].get('href')
+            sublink = self._soup.find("a", **{'class': 'thumb_image'}).get('href')
             return "http://e-shuushuu.net" + sublink
         except (IndexError, AttributeError):
             raise ImageNotFoundException()

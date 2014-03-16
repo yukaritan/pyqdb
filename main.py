@@ -1,3 +1,4 @@
+import sys
 from iqdbparser import IQDBParser
 from iqdbquerier import IQDBQuerier
 from scrapers.animepictures import AnimePicturesScraper
@@ -33,16 +34,21 @@ def get_scraper(link: str) -> GenericImageScraper:
     return None
 
 
-def main():
+def main() -> int:
 
     print("Talking to iqdb...")
-    raw = IQDBQuerier.post("testdata/dat assu.jpg")
+    raw = IQDBQuerier.post("testdata/2712.png")
 
     print("Parsing response...")
     iqdbparser = IQDBParser(raw)
 
     # Grab all the links
-    results = iqdbparser.get_all_matches()
+    results = list(iqdbparser.get_all_matches())
+
+    if not results or results[0] is None:
+        print("Couldn't find anything")
+        return 1
+
     for result in results:
         print(result)
 
@@ -64,6 +70,7 @@ def main():
         # Make the result nice and easy on the eyes (yeah, right)
         print()
 
+    return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

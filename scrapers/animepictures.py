@@ -22,7 +22,7 @@ class AnimePicturesScraper(GenericImageScraper):
 
     def find_image_link(self) -> str:
         try:
-            sublink = self._soup.find_all('div', id='big_preview_cont')[0].a.get('href')
+            sublink = self._soup.find('div', id='big_preview_cont').a.get('href')
             return "http://anime-pictures.net" + sublink
         except (IndexError, AttributeError):
             raise ImageNotFoundException()
